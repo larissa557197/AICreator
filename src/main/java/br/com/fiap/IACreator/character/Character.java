@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Charater {
+public class Character {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
