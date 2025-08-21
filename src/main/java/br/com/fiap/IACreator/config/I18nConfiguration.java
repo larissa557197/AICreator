@@ -15,7 +15,7 @@ import java.util.Locale;
 @Configuration
 public class I18nConfiguration implements WebMvcConfigurer {
     
- @Bean
+    @Bean
     MessageSource messageSource(){
         var messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages");
@@ -31,7 +31,7 @@ public class I18nConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor((localeChangeInterceptor()));
+        registry.addInterceptor(localeChangeInterceptor());
     }
 
     @Bean
@@ -41,5 +41,3 @@ public class I18nConfiguration implements WebMvcConfigurer {
         return localeResolver;
     }
 }
-
-
