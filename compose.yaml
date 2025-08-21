@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: postgres_g
+    environment:
+      - 'POSTGRES_DB=iacreator'
+      - 'POSTGRES_PASSWORD=iacreator'
+      - 'POSTGRES_USER=iacreator'
+    ports:
+      - '5432:5432'
