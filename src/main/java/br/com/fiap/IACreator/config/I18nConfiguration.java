@@ -18,7 +18,7 @@ public class I18nConfiguration implements WebMvcConfigurer {
     @Bean
     MessageSource messageSource(){
         var messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("messages");
+        messageSource.setBasenames("messages", "ValidationMessages");
         return messageSource;
     }
 
@@ -41,3 +41,4 @@ public class I18nConfiguration implements WebMvcConfigurer {
         return localeResolver;
     }
 }
+
