@@ -4,127 +4,157 @@
     <meta charset="UTF-8">
     <title th:text="#{character.form.title}">New Character</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: 'Orbitron', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
             margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
         }
         h1 {
-            color: #007bff;
-            border-bottom: 2px solid #007bff;
+            color: #00bfff;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+            border-bottom: 2px solid #00bfff;
             padding-bottom: 10px;
+            text-align: center;
         }
+        
         .language-selector {
-            margin: 0 0 16px 0;
+            margin-bottom: 20px;
         }
         .language-selector a {
-            display: inline-block;
-            margin-right: 8px;
-            padding: 6px 10px;
-            background: #e9ecef;
-            color: #333;
+            padding: 8px 15px;
+            font-size: 0.8em;
+            background-color: #30363d;
+            color: #c9d1d9;
             text-decoration: none;
-            border-radius: 4px;
-            font-weight: 600;
+            border-radius: 6px;
+            margin-right: 8px;
+            transition: background-color 0.2s;
         }
-        .language-selector a:hover { background:#dee2e6; }
+        .language-selector a:hover { 
+            background-color: #5a6268; 
+            color: white;
+        }
+
         form {
-            background-color: white;
-            padding: 20px;
+            background-color: #161b22;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid #30363d;
         }
         .error {
-            color: red;
+            color: #ff6347;
             font-size: 0.9em;
             margin-left: 10px;
         }
         form div {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
+            color: #8b949e;
         }
         input[type="text"], input[type="number"], input[type="date"], textarea, select {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
+            padding: 10px;
+            border: 1px solid #30363d;
             border-radius: 4px;
             box-sizing: border-box;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #00bfff;
+            box-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
         }
         button {
-            background-color: #007bff;
+            background: linear-gradient(45deg, #ff00ff, #00bfff);
             color: white;
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
             width: 100%;
             font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.4);
+            transition: all 0.3s ease;
         }
         button:hover {
-            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 191, 255, 0.6);
         }
     </style>
 </head>
 <body>
-
-<div class="language-selector">
-    <a th:href="@{/characters/new(lang='pt_BR')}">PT</a>
-    <a th:href="@{/characters/new(lang='en_US')}">EN</a>
-    <a th:href="@{/characters/new(lang='es_ES')}">ES</a>
-</div>
-
-<h1 th:text="#{character.form.heading}">New Character</h1>
-
-<form th:action="@{/characters/form}" th:object="${character}" method="post">
-    <div>
-        <label for="name" th:text="#{character.name}">Name:</label>
-        <input type="text" id="name" th:field="*{name}">
-        <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <div class="container">
+        <div class="language-selector">
+            <a th:href="@{/characters/new(lang='pt_BR')}">PT</a>
+            <a th:href="@{/characters/new(lang='en_US')}">EN</a>
+            <a th:href="@{/characters/new(lang='es_ES')}">ES</a>
+        </div>
+    
+        <h1 th:text="#{character.form.heading}">New Character</h1>
+    
+        <form th:action="@{/characters/form}" th:object="${character}" method="post">
+            
+            <div>
+                <label for="name" th:text="#{character.name}">Name:</label>
+                <input type="text" id="name" th:field="*{name}">
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+    
+            <div>
+                <label for="species" th:text="#{character.species}">Species:</label>
+                <select id="species" th:field="*{species}">
+                    <option value="" th:text="#{select.placeholder}">Select...</option>
+                    <option value="HUMAN">HUMAN</option>
+                    <option value="CYBORG">CYBORG</option>
+                    <option value="ALIEN">ALIEN</option>
+                    <option value="ANDROID">ANDROID</option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('species')}" th:errors="*{species}"></span>
+            </div>
+    
+            <div>
+                <label for="startingLevel" th:text="#{character.startingLevel}">Starting Level:</label>
+                <input type="number" id="startingLevel" th:field="*{startingLevel}" min="1" max="99">
+                <span class="error" th:if="${#fields.hasErrors('startingLevel')}" th:errors="*{startingLevel}"></span>
+            </div>
+    
+            <div>
+                <label for="specialAbility" th:text="#{character.specialAbility}">Special Ability:</label>
+                <input type="text" id="specialAbility" th:field="*{specialAbility}">
+                <span class="error" th:if="${#fields.hasErrors('specialAbility')}" th:errors="*{specialAbility}"></span>
+            </div>
+    
+            <div>
+                <label for="bio" th:text="#{character.bio}">Bio:</label>
+                <textarea id="bio" th:field="*{bio}"></textarea>
+                <span class="error" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></span>
+            </div>
+    
+            <div>
+                <label for="creationDate" th:text="#{character.creationDate}">Creation Date:</label>
+                <input type="date" id="creationDate" th:field="*{creationDate}">
+                <span class="error" th:if="${#fields.hasErrors('creationDate')}" th:errors="*{creationDate}"></span>
+            </div>
+    
+            <button type="submit" th:text="#{button.save}">Save Character</button>
+        </form>
     </div>
-
-    <div>
-        <label for="species" th:text="#{character.species}">Species:</label>
-        <select id="species" th:field="*{species}">
-            <option value="" th:text="#{select.placeholder}">Select...</option>
-            <option th:each="s : ${T(br.com.fiap.IACreator.character.enums.Species).values()}"
-                    th:value="${s.name()}"
-                    th:text="#{'species.' + ${s}}"></option>
-        </select>
-        <span class="error" th:if="${#fields.hasErrors('species')}" th:errors="*{species}"></span>
-    </div>
-
-    <div>
-        <label for="startingLevel" th:text="#{character.startingLevel}">Starting Level:</label>
-        <input type="number" id="startingLevel" th:field="*{startingLevel}" min="1" max="99">
-        <span class="error" th:if="${#fields.hasErrors('startingLevel')}" th:errors="*{startingLevel}"></span>
-    </div>
-
-    <div>
-        <label for="specialAbility" th:text="#{character.specialAbility}">Special Ability:</label>
-        <input type="text" id="specialAbility" th:field="*{specialAbility}">
-        <span class="error" th:if="${#fields.hasErrors('specialAbility')}" th:errors="*{specialAbility}"></span>
-    </div>
-
-    <div>
-        <label for="bio" th:text="#{character.bio}">Bio:</label>
-        <textarea id="bio" th:field="*{bio}"></textarea>
-        <span class="error" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></span>
-    </div>
-
-    <div>
-        <label for="creationDate" th:text="#{character.creationDate}">Creation Date:</label>
-        <input type="date" id="creationDate" th:field="*{creationDate}">
-        <span class="error" th:if="${#fields.hasErrors('creationDate')}" th:errors="*{creationDate}"></span>
-    </div>
-
-    <button type="submit" th:text="#{button.save}">Save Character</button>
-</form>
 </body>
 </html>
