@@ -19,6 +19,9 @@ public class I18nConfiguration implements WebMvcConfigurer {
     MessageSource messageSource(){
         var messageSource = new ResourceBundleMessageSource();
         messageSource.setBasenames("messages", "ValidationMessages");
+        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setUseCodeAsDefaultMessage(true);
+        messageSource.setFallbackToSystemLocale(false);
         return messageSource;
     }
 
